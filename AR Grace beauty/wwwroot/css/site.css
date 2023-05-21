@@ -1,0 +1,87 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
+    font: 300 1em/1.5, serif;
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    margin: auto;
+    margin-bottom: 150px; /* Same height as footer */
+}
+
+.fixed_footer {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: -100;
+}
+
+    .fixed_footer p {
+        column-count: 1;
+        column-gap: 50px;
+        font-size: 1em;
+        font-weight: 300;
+    }
+
+.cell-centered {
+    text-align: center;
+    vertical-align: middle;
+}
+
+a, p, td, div {
+    font-size: 1.2rem;
+}
+
+table.rounded-corners thead tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table.rounded-corners thead tr:last-child th:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table.rounded-corners thead tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table.rounded-corners thead tr:last-child th:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+table.rounded-corners tbody tr:first-child td:first-child {
+    border-top-left-radius: 10px;
+}
+
+table.rounded-corners tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table.rounded-corners tbody tr:first-child td:last-child {
+    border-top-right-radius: 10px;
+}
+
+table.rounded-corners tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}

@@ -1,0 +1,46 @@
+﻿﻿@using AR_Grace_beauty.Models;
+@model Worker
+
+@{
+    ViewData["Title"] = "Добавление";
+}
+
+
+<div class="row justify-content-center">
+    <div class="card text-white bg-secondary mb-5 mt-5" style="max-width: 50rem;">
+        <div class="card-header"><h2 class="text-light card-title cell-centered">Новый мастер</h2></div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label class="p-1" for="floatingInput" asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-primary"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="p-1" for="floatingInput" asp-for="Phost"></label>
+                    <input asp-for="Phost" class="form-control" />
+                    <span asp-validation-for="Phost" class="text-primary"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="p-1" for="floatingInput" asp-for="Phone"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-primary"></span>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a asp-controller="Worker" asp-action="Index" class="btn btn-primary w-100">Back</a>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success w-100">Apply</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

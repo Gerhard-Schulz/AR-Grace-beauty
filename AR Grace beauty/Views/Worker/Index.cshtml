@@ -1,0 +1,38 @@
+﻿﻿@using AR_Grace_beauty.Models;
+@model IEnumerable<Worker>
+
+@{
+    ViewData["Title"] = "Наши мастера";
+}
+
+<table class="table table-hover w-100 mt-3 pb-2 cell-centered rounded-corners">
+    <thead class="table-primary"> 
+        <tr>
+            <th colspan="4">
+                <h2 class="text-center text-light mt-1">Мастера</h2>
+            </th>
+        </tr>
+    </thead>
+    <tbody class="table-secondary">
+        @foreach (var worker in Model)
+        {
+            <tr>
+                <td>
+                    @worker.Name
+                </td>
+                <td>
+                    @worker.Phost
+                </td>
+                <td>
+                    @worker.Phone
+                </td>
+                <td>
+                    <div class="btn-group w-100" role="group">
+                        <a asp-controller="Worker" asp-action="Edit" asp-route-id="@worker.Id" class="btn btn-warning"><i class="bi bi-pen"></i> Edit</a>
+                        <a asp-controller="Worker" asp-action="Delete" asp-route-id="@worker.Id" class="btn btn-danger"><i class="bi bi-trash3"></i> Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,52 @@
+﻿﻿@using AR_Grace_beauty.Models;
+@model IEnumerable<TypeService>
+
+@{
+    ViewData["Title"] = "Услуги";
+}
+
+<table class="table table-hover w-100 mt-3 pb-2 cell-centered rounded-corners">
+    <thead class="table-primary"> 
+        <tr>
+            <th colspan="6">
+                <h2 class="text-center text-light mt-1">Услуги по видам</h2>
+            </th>
+        </tr>
+        <tr>
+            <th>Услуга</th>
+            <th>Вид услуги</th>
+            <th>Цена за вид</th>
+            <th>Итоговая цена</th>
+            <th>Опиание</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-secondary">
+        @foreach (var typeService in Model)
+        {
+            <tr>
+                <td>
+                    @typeService.Service.Name
+                </td>
+                <td>
+                    @typeService.Name
+                </td>
+                <td>
+                    @typeService.Price руб.
+                </td>
+                <td>
+                    @typeService.TotalPrice руб.
+                </td>
+                <td>
+                    @typeService.Description
+                </td>
+                <td>
+                    <div class="btn-group w-100" role="group">
+                        <a asp-controller="TypeService" asp-action="Edit" asp-route-id="@typeService.Id" class="btn btn-warning"><i class="bi bi-pen"></i> Edit</a>
+                        <a asp-controller="TypeService" asp-action="Delete" asp-route-id="@typeService.Id" class="btn btn-danger"><i class="bi bi-trash3"></i> Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

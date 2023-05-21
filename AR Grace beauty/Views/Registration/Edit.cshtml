@@ -1,0 +1,61 @@
+﻿﻿@using AR_Grace_beauty.Models;
+@model Registration
+
+@{
+    ViewData["Title"] = "Изменение";
+}
+
+<div class="row justify-content-center">
+    <div class="card text-white bg-secondary mb-5 mt-5" style="max-width: 50rem;">
+        <div class="card-header"><h2 class="text-light card-title cell-centered">Изменить запись</h2></div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label class="p-1" for="floatingInput" asp-for="DateTime"></label>
+                    <input asp-for="DateTime" class="form-control" />
+                    <span asp-validation-for="DateTime" class="text-primary"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="p-1" for="floatingInput" asp-for="Length"></label>
+                    <input type="number" step="0.5" asp-for="Length" class="form-control" />
+                    <span asp-validation-for="Length" class="text-primary"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="p-1" asp-for="ClientId"></label>
+                    <select asp-for="ClientId" asp-items="ViewBag.ClientList" class="form-select">
+                        <option selected disabled></option>
+                    </select>
+                    <span asp-validation-for="ClientId" class="text-primary"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="p-1" asp-for="TypeServiceId"></label>
+                    <select asp-for="TypeServiceId" asp-items="ViewBag.TypeServiceList" class="form-select">
+                        <option selected disabled></option>
+                    </select>
+                    <span asp-validation-for="TypeServiceId" class="text-primary"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="p-1" asp-for="WorkerId"></label>
+                    <select asp-for="WorkerId" asp-items="ViewBag.WorkerList" class="form-select">
+                        <option selected disabled></option>
+                    </select>
+                    <span asp-validation-for="WorkerId" class="text-primary"></span>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a asp-controller="Registration" asp-action="Index" class="btn btn-primary w-100">Back</a>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-warning w-100">Apply</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

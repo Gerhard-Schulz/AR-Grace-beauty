@@ -1,0 +1,52 @@
+﻿﻿@using AR_Grace_beauty.Models;
+@model IEnumerable<Registration>
+
+@{
+    ViewData["Title"] = "Записи";
+}
+
+<table class="table table-hover w-100 mt-3 pb-2 cell-centered rounded-corners">
+    <thead class="table-primary"> 
+        <tr>
+            <th colspan="6">
+                <h2 class="text-center text-light mt-1">Записи</h2>
+            </th>
+        </tr>
+        <tr>
+            <th>Клиент</th>
+            <th>Услуга</th>
+            <th>Время</th>
+            <th>Продолжительность</th>
+            <th>Мастер</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="table-secondary">
+        @foreach (var registration in Model)
+        {
+            <tr>
+                <td>
+                    @registration.Client.Name
+                </td>
+                <td>
+                    @registration.TypeService.Service.Name - @registration.TypeService.Name (@registration.TypeService.TotalPrice руб.)
+                </td>
+                <td>
+                    @registration.DateTime.ToString("d MMMM HH:mm") 
+                </td>
+                <td>
+                    @registration.Length часа
+                </td>
+                <td>
+                    @registration.Worker.Name - @registration.Worker.Phost
+                </td>
+                <td>
+                    <div class="btn-group w-100" role="group">
+                        <a asp-controller="Registration" asp-action="Edit" asp-route-id="@registration.Id" class="btn btn-warning"><i class="bi bi-pen"></i> Edit</a>
+                        <a asp-controller="Registration" asp-action="Delete" asp-route-id="@registration.Id" class="btn btn-danger"><i class="bi bi-trash3"></i> Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
