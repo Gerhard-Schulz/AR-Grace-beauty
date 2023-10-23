@@ -1,4 +1,4 @@
-using AR_Grace_beauty;
+using GalanjBarberShop;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

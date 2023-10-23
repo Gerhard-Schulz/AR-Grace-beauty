@@ -1,18 +1,17 @@
-﻿using AR_Grace_beauty.Models;
+﻿using GalanjBarberShop.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AR_Grace_beauty
+namespace GalanjBarberShop;
+
+public class ApplicationDbContext : DbContext
 {
-    public class ApplicationDbContext : DbContext
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Client> Client { get; set; }
-        public DbSet<Registration> Registration { get; set; }
-        public DbSet<Service> Service { get; set; }
-        public DbSet<TypeService> TypeService { get; set; }
-        public DbSet<Worker> Worker { get; set; }
+    public DbSet<Client> Client { get; set; }
+    public DbSet<Registration> Registration { get; set; }
+    public DbSet<Service> Service { get; set; }
+    public DbSet<TypeService> TypeService { get; set; }
+    public DbSet<Worker> Worker { get; set; }
 
-        public ApplicationDbContext() => Database.EnsureCreated();
-    }
+    public ApplicationDbContext() => Database.EnsureCreated();
 }

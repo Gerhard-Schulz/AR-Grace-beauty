@@ -1,9 +1,9 @@
-﻿using AR_Grace_beauty.Models;
+﻿using GalanjBarberShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace AR_Grace_beauty.Controllers
+namespace GalanjBarberShop.Controllers
 {
     public class RegistrationController : Controller
     {

@@ -1,9 +1,8 @@
-namespace AR_Grace_beauty.Models
-{
-    public class ErrorViewModel
-    {
-        public string? RequestId { get; set; }
+namespace GalanjBarberShop.Models;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+public class ErrorViewModel
+{
+    public string? RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }

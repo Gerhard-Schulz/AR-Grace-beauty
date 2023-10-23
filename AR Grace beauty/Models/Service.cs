@@ -1,19 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace AR_Grace_beauty.Models
+namespace GalanjBarberShop.Models;
+
+public class Service
 {
-    public class Service
-    {
-        [Key]
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [DisplayName("Наименование")]
-        [Required(ErrorMessage = "Это поле обязательно к заполнению")]
-        public string Name { get; set; }
+    [DisplayName("Наименование")]
+    [Required(ErrorMessage = "Это поле обязательно к заполнению")]
+    public string Name { get; set; }
 
-        [DisplayName("Цена")]
-        [Required(ErrorMessage = "Это поле обязательно к заполнению")]
-        public decimal Price { get; set; }
-    }
+    [DisplayName("Цена")]
+    [Required(ErrorMessage = "Это поле обязательно к заполнению")]
+    public decimal Price { get; set; }
 }

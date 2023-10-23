@@ -1,90 +1,89 @@
-﻿using AR_Grace_beauty.Models;
+﻿using GalanjBarberShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace AR_Grace_beauty.Controllers
+namespace GalanjBarberShop.Controllers;
+
+public class TypeServiceController : Controller
 {
-    public class TypeServiceController : Controller
+    public readonly ApplicationDbContext _db;
+    public TypeServiceController(ApplicationDbContext db) => _db = db;
+
+    public IActionResult Index()
     {
-        public readonly ApplicationDbContext _db;
-        public TypeServiceController(ApplicationDbContext db) => _db = db;
+        List<TypeService> typeServiceList = _db.TypeService.Include(u => u.Service).ToList();
+        return View(typeServiceList);
+    }
 
-        public IActionResult Index()
+    public IActionResult Add()
+    {
+        IEnumerable<SelectListItem> ServiceList = _db.Service.ToList().Select(u => new SelectListItem
         {
-            List<TypeService> typeServiceList = _db.TypeService.Include(u => u.Service).ToList();
-            return View(typeServiceList);
-        }
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.ServiceList = ServiceList;
 
-        public IActionResult Add()
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Add(TypeService typeService)
+    {
+        if (ModelState.IsValid)
         {
-            IEnumerable<SelectListItem> ServiceList = _db.Service.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.ServiceList = ServiceList;
-
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Add(TypeService typeService)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.TypeService.Add(typeService);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            TypeService? typeServiceFromDb = _db.TypeService.Find(id);
-            if (typeServiceFromDb == null)
-            {
-                return NotFound();
-            }
-
-            IEnumerable<SelectListItem> ServiceList = _db.Service.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.ServiceList = ServiceList;
-
-            return View(typeServiceFromDb);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(TypeService typeService)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.TypeService.Update(typeService);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        public IActionResult Delete(int? id)
-        {
-            TypeService? typeServiceFromDb = _db.TypeService.Find(id);
-            if (typeServiceFromDb == null)
-            {
-                return NotFound();
-            }
-            _db.TypeService.Remove(typeServiceFromDb);
+            _db.TypeService.Add(typeService);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        return View();
+    }
+
+    public IActionResult Edit(int? id)
+    {
+        if (id == null || id == 0)
+        {
+            return NotFound();
+        }
+
+        TypeService? typeServiceFromDb = _db.TypeService.Find(id);
+        if (typeServiceFromDb == null)
+        {
+            return NotFound();
+        }
+
+        IEnumerable<SelectListItem> ServiceList = _db.Service.ToList().Select(u => new SelectListItem
+        {
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.ServiceList = ServiceList;
+
+        return View(typeServiceFromDb);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(TypeService typeService)
+    {
+        if (ModelState.IsValid)
+        {
+            _db.TypeService.Update(typeService);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return View();
+    }
+
+    public IActionResult Delete(int? id)
+    {
+        TypeService? typeServiceFromDb = _db.TypeService.Find(id);
+        if (typeServiceFromDb == null)
+        {
+            return NotFound();
+        }
+        _db.TypeService.Remove(typeServiceFromDb);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
     }
 }

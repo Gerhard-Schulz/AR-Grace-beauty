@@ -1,6 +1,4 @@
-﻿﻿@using AR_Grace_beauty.Models;
-@model IEnumerable<Service>
-
+﻿@model IEnumerable<Service>
 @{
     ViewData["Title"] = "Услуги";
 }
@@ -25,8 +23,8 @@
                 </td>
                 <td>
                     <div class="btn-group w-100" role="group">
-                        <a asp-controller="Service" asp-action="Edit" asp-route-id="@service.Id" class="btn btn-warning"><i class="bi bi-pen"></i> Edit</a>
-                        <a asp-controller="Service" asp-action="Delete" asp-route-id="@service.Id" class="btn btn-primary"><i class="bi bi-trash3"></i> Delete</a>
+                        <a asp-controller="Service" asp-action="Edit" asp-route-id="@service.Id" class="btn btn-warning"><i class="bi bi-pen"></i> Изменить</a>
+                        <a asp-controller="Service" asp-action="Delete" asp-route-id="@service.Id" class="btn btn-primary"><i class="bi bi-trash3"></i> Удалить</a>
                     </div>
                 </td>
             </tr>
