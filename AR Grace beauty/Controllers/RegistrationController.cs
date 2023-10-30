@@ -3,116 +3,115 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace GalanjBarberShop.Controllers
+namespace GalanjBarberShop.Controllers;
+
+public class RegistrationController : Controller
 {
-    public class RegistrationController : Controller
+    public readonly ApplicationDbContext _db;
+    public RegistrationController(ApplicationDbContext db) => _db = db;
+
+    public IActionResult Index()
     {
-        public readonly ApplicationDbContext _db;
-        public RegistrationController(ApplicationDbContext db) => _db = db;
+        List<Registration> registrationList = _db.Registration.Include(u => u.TypeService).ThenInclude(u => u.Service).Include(u => u.Client).Include(u => u.Worker).ToList();
+        return View(registrationList);
+    }
 
-        public IActionResult Index()
+    public IActionResult Add()
+    {
+        IEnumerable<SelectListItem> TypeServiceList = _db.TypeService.ToList().Select(u => new SelectListItem
         {
-            List<Registration> registrationList = _db.Registration.Include(u => u.TypeService).ThenInclude(u => u.Service).Include(u => u.Client).Include(u => u.Worker).ToList();
-            return View(registrationList);
-        }
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.TypeServiceList = TypeServiceList;
 
-        public IActionResult Add()
+        IEnumerable<SelectListItem> ClientList = _db.Client.ToList().Select(u => new SelectListItem
         {
-            IEnumerable<SelectListItem> TypeServiceList = _db.TypeService.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.TypeServiceList = TypeServiceList;
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.ClientList = ClientList;
 
-            IEnumerable<SelectListItem> ClientList = _db.Client.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.ClientList = ClientList;
-
-            IEnumerable<SelectListItem> WorkerList = _db.Worker.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.WorkerList = WorkerList;
-
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Add(Registration registration)
+        IEnumerable<SelectListItem> WorkerList = _db.Worker.ToList().Select(u => new SelectListItem
         {
-            if (ModelState.IsValid)
-            {
-                _db.Registration.Add(registration);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.WorkerList = WorkerList;
 
-        public IActionResult Edit(int? id)
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Add(Registration registration)
+    {
+        if (ModelState.IsValid)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-
-            Registration? registrationFromDb = _db.Registration.Find(id);
-            if (registrationFromDb == null)
-            {
-                return NotFound();
-            }
-
-            IEnumerable<SelectListItem> TypeServiceList = _db.TypeService.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.TypeServiceList = TypeServiceList;
-
-            IEnumerable<SelectListItem> ClientList = _db.Client.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.ClientList = ClientList;
-
-            IEnumerable<SelectListItem> WorkerList = _db.Worker.ToList().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            ViewBag.WorkerList = WorkerList;
-
-            return View(registrationFromDb);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Registration registration)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Registration.Update(registration);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        public IActionResult Delete(int? id)
-        {
-            Registration? registrationFromDb = _db.Registration.Find(id);
-            if (registrationFromDb == null)
-            {
-                return NotFound();
-            }
-            _db.Registration.Remove(registrationFromDb);
+            _db.Registration.Add(registration);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        return View();
+    }
+
+    public IActionResult Edit(int? id)
+    {
+        if (id == null || id == 0)
+        {
+            return NotFound();
+        }
+
+        Registration? registrationFromDb = _db.Registration.Find(id);
+        if (registrationFromDb == null)
+        {
+            return NotFound();
+        }
+
+        IEnumerable<SelectListItem> TypeServiceList = _db.TypeService.ToList().Select(u => new SelectListItem
+        {
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.TypeServiceList = TypeServiceList;
+
+        IEnumerable<SelectListItem> ClientList = _db.Client.ToList().Select(u => new SelectListItem
+        {
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.ClientList = ClientList;
+
+        IEnumerable<SelectListItem> WorkerList = _db.Worker.ToList().Select(u => new SelectListItem
+        {
+            Text = u.Name,
+            Value = u.Id.ToString()
+        });
+        ViewBag.WorkerList = WorkerList;
+
+        return View(registrationFromDb);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Registration registration)
+    {
+        if (ModelState.IsValid)
+        {
+            _db.Registration.Update(registration);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        return View();
+    }
+
+    public IActionResult Delete(int? id)
+    {
+        Registration? registrationFromDb = _db.Registration.Find(id);
+        if (registrationFromDb == null)
+        {
+            return NotFound();
+        }
+        _db.Registration.Remove(registrationFromDb);
+        _db.SaveChanges();
+        return RedirectToAction("Index");
     }
 }

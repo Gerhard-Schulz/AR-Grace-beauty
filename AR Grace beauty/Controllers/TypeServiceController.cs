@@ -10,9 +10,13 @@ public class TypeServiceController : Controller
     public readonly ApplicationDbContext _db;
     public TypeServiceController(ApplicationDbContext db) => _db = db;
 
-    public IActionResult Index()
+    public IActionResult Index(string searchString)
     {
-        List<TypeService> typeServiceList = _db.TypeService.Include(u => u.Service).ToList();
+        var typeServiceList = _db.TypeService.Include(u => u.Service).AsQueryable();
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            typeServiceList = typeServiceList.Where(c => c.Service.Name.Contains(searchString));
+        }
         return View(typeServiceList);
     }
 
